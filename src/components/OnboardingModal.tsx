@@ -162,7 +162,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   value={college}
                   onChange={(e) => setCollege(e.target.value)}
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                  placeholder="Enter college / university name"
+                  placeholder="Enter college name"
                 />
               </div>
 
@@ -175,7 +175,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   value={degree}
                   onChange={(e) => setDegree(e.target.value)}
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                  placeholder="Enter degree program"
+                  placeholder="Enter degree"
                 />
               </div>
 
@@ -209,7 +209,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 value={currentSubjectsText}
                 onChange={(e) => setCurrentSubjectsText(e.target.value)}
                 className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                placeholder="Comma-separated subjects"
+                placeholder="Enter current subjects"
               />
             </div>
           </div>
@@ -234,6 +234,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   type="text"
                   value={backlogName}
                   onChange={(e) => setBacklogName(e.target.value)}
+                  placeholder="Enter subject name"
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
                 />
               </div>
@@ -255,7 +256,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     value={backlogCredits}
                     onChange={(e) => setBacklogCredits(Number(e.target.value))}
                     className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none"
-                    placeholder="Enter credits (1-6)"
+                    placeholder="Enter credits"
                     min={1}
                     max={6}
                   />

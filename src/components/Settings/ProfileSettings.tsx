@@ -103,7 +103,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 type="text"
                 value={formData.college}
                 onChange={(e) => setFormData({ ...formData, college: e.target.value })}
-                placeholder="Enter college / university name"
+                placeholder="Enter college name"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -114,7 +114,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 type="text"
                 value={formData.degree}
                 onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
-                placeholder="Enter program / degree"
+                placeholder="Enter degree"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -261,7 +261,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
           Reset Data & Prototype Calibration
         </div>
         <p className="text-xs text-slate-400">
-          Reset all stored localStorage backlogs, study schedules, and timer history to the default 7th-semester student scenario (Rahul Sharma).
+          Reset all stored localStorage backlogs, study schedules, and timer history to the default student scenario.
         </p>
         <div className="flex flex-wrap gap-3">
           {onLogout && (

@@ -117,7 +117,7 @@ export function App() {
   };
 
   const handleResetData = () => {
-    if (window.confirm("Reset all prototype data to the default Rahul Sharma academic recovery scenario?")) {
+    if (window.confirm("Reset all prototype data to the default academic recovery scenario?")) {
       storageService.resetAllToDefault();
       setStudent(initialStudentProfile);
       setBacklogs(initialBacklogs);
@@ -141,7 +141,7 @@ export function App() {
       studentName: string;
       studentEmail?: string;
       usn?: string;
-      method: 'roll_otp' | 'demo_rahul' | 'custom_signup';
+      method: 'roll_otp' | 'quick_verify' | 'custom_signup';
     }
   ) => {
     storageService.saveAuthSession({
@@ -336,7 +336,7 @@ export function App() {
               studentName: newProfile.name || student.name,
               studentEmail: `${(newProfile.name || student.name).toLowerCase().replace(/\s+/g, '.')}@college.edu`,
               verifiedAt: new Date().toISOString(),
-              method: 'demo_rahul',
+              method: 'quick_verify',
             });
           }
           setIsAuthenticated(true);

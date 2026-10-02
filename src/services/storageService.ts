@@ -26,7 +26,7 @@ export interface AuthSession {
   studentEmail?: string;
   usn?: string;
   verifiedAt: string;
-  method: 'roll_otp' | 'demo_rahul' | 'custom_signup';
+  method: 'roll_otp' | 'quick_verify' | 'custom_signup';
 }
 
 export const storageService = {

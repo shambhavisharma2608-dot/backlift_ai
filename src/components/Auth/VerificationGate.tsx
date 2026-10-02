@@ -21,7 +21,7 @@ interface VerificationGateProps {
     studentName: string;
     studentEmail?: string;
     usn?: string;
-    method: 'roll_otp' | 'demo_rahul' | 'custom_signup';
+    method: 'roll_otp' | 'quick_verify' | 'custom_signup';
   }) => void;
 }
 
@@ -31,6 +31,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
   const [tab, setTab] = useState<'usn_verify' | 'demo_verify' | 'new_register'>('usn_verify');
 
   // USN / OTP State
+  const [studentName, setStudentName] = useState('');
   const [university, setUniversity] = useState('VTU (Visvesvaraya Technological University)');
   const [usn, setUsn] = useState('');
   const [email, setEmail] = useState('');
@@ -39,6 +40,10 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
   const [codeSent, setCodeSent] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  // Quick Evaluator State
+  const [quickName, setQuickName] = useState('');
+  const [quickEmail, setQuickEmail] = useState('');
 
   // New Student State
   const [newStudentName, setNewStudentName] = useState('');
@@ -50,7 +55,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
   const handleSendCode = (e: React.FormEvent) => {
     e.preventDefault();
     if (!usn.trim() || !email.trim()) {
-      setErrorMessage('Please enter both your University Roll No / USN and College Email.');
+      setErrorMessage('Please enter both your University Roll No / USN and Email.');
       return;
     }
     setErrorMessage('');
@@ -76,50 +81,53 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
 
     setTimeout(() => {
       setIsVerifying(false);
+      const verifiedName = studentName.trim() || (usn ? `Student (${usn.toUpperCase()})` : 'Student');
       onVerificationSuccess(
         {
-          name: usn === '1NT20CS042' ? 'Rahul Sharma' : `Student (${usn.toUpperCase()})`,
+          name: verifiedName,
           college: university,
-          degree: 'B.Tech in Computer Science & Engineering',
+          degree: 'B.Tech Engineering Degree',
           semester: 7,
         },
         {
-          studentName: usn === '1NT20CS042' ? 'Rahul Sharma' : `Student (${usn.toUpperCase()})`,
+          studentName: verifiedName,
           studentEmail: email,
           usn: usn.toUpperCase(),
           method: 'roll_otp',
         }
       );
-    }, 1100);
+    }, 900);
   };
 
-  // Handle 1-Click Demo Login
-  const handleQuickDemoVerify = () => {
+  // Handle 1-Click Quick Verify
+  const handleQuickVerify = () => {
     setIsVerifying(true);
     setTimeout(() => {
       setIsVerifying(false);
+      const verifiedName = quickName.trim() || 'Verified Student';
+      const verifiedEmail = quickEmail.trim() || 'student@university.edu';
       onVerificationSuccess(
         {
-          name: 'Rahul Sharma',
-          college: 'National Institute of Engineering & Technology (VTU)',
+          name: verifiedName,
+          college: 'Engineering Institution',
           degree: 'B.Tech in Computer Science & Engineering',
           semester: 7,
         },
         {
-          studentName: 'Rahul Sharma',
-          studentEmail: 'rahul.sharma@vtu.ac.in',
-          usn: '1NT20CS042',
-          method: 'demo_rahul',
+          studentName: verifiedName,
+          studentEmail: verifiedEmail,
+          usn: 'STU-' + Math.floor(1000 + Math.random() * 9000),
+          method: 'quick_verify',
         }
       );
-    }, 800);
+    }, 600);
   };
 
   // Handle New Register
   const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newStudentName.trim() || !newStudentCollege.trim()) {
-      setErrorMessage('Please fill in your name and college/university.');
+      setErrorMessage('Please fill in your name and college.');
       return;
     }
     setErrorMessage('');
@@ -130,7 +138,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
         {
           name: newStudentName.trim(),
           college: newStudentCollege.trim(),
-          degree: newStudentDegree,
+          degree: newStudentDegree.trim() || 'B.Tech Degree',
           semester: Number(newStudentSem),
         },
         {
@@ -140,7 +148,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
           method: 'custom_signup',
         }
       );
-    }, 900);
+    }, 800);
   };
 
   return (
@@ -182,7 +190,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
             <button
               type="button"
               onClick={() => { setTab('usn_verify'); setErrorMessage(''); }}
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
                 tab === 'usn_verify'
                   ? 'bg-indigo-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -195,20 +203,20 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
             <button
               type="button"
               onClick={() => { setTab('demo_verify'); setErrorMessage(''); }}
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
                 tab === 'demo_verify'
                   ? 'bg-indigo-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Demo Quick Login</span>
+              <span>Quick Login</span>
             </button>
 
             <button
               type="button"
               onClick={() => { setTab('new_register'); setErrorMessage(''); }}
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
                 tab === 'new_register'
                   ? 'bg-indigo-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -250,6 +258,20 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                     </select>
                   </div>
 
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5 text-indigo-400" />
+                      <span>Full Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={studentName}
+                      onChange={(e) => setStudentName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
@@ -258,9 +280,10 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                       </label>
                       <input
                         type="text"
+                        required
                         value={usn}
                         onChange={(e) => setUsn(e.target.value)}
-                        placeholder="Enter University Seat No / USN"
+                        placeholder="Enter USN"
                         className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-mono uppercase"
                       />
                     </div>
@@ -268,13 +291,14 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                         <Mail className="w-3.5 h-3.5 text-cyan-400" />
-                        <span>College Email Address</span>
+                        <span>Email Address</span>
                       </label>
                       <input
                         type="email"
+                        required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter college email"
+                        placeholder="Enter email"
                         className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                       />
                     </div>
@@ -284,7 +308,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                     type="submit"
                     className="w-full py-3.5 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
                   >
-                    <span>Send 6-Digit Verification Code</span>
+                    <span>Send Verification Code</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>
@@ -314,14 +338,14 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-slate-300">
-                      Enter 6-Digit Verification Code
+                      Verification Code
                     </label>
                     <input
                       type="text"
                       maxLength={6}
                       value={enteredCode}
                       onChange={(e) => setEnteredCode(e.target.value.replace(/\D/g, ''))}
-                      placeholder="Enter 6-digit code"
+                      placeholder="Enter verification code"
                       className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-center font-mono text-lg tracking-widest text-white focus:outline-none focus:border-indigo-500"
                     />
                   </div>
@@ -330,7 +354,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                     <button
                       type="button"
                       onClick={() => setCodeSent(false)}
-                      className="py-3 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-white/[0.08] transition"
+                      className="py-3 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-white/[0.08] transition cursor-pointer"
                     >
                       Back
                     </button>
@@ -342,11 +366,11 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                       {isVerifying ? (
                         <>
                           <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          <span>Verifying with University Registry...</span>
+                          <span>Verifying Credentials...</span>
                         </>
                       ) : (
                         <>
-                          <ShieldCheck className="w-4 h-4" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-200" />
                           <span>Verify & Unlock Student Tools</span>
                         </>
                       )}
@@ -357,66 +381,62 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
             </div>
           )}
 
-          {/* TAB 2: DEMO QUICK VERIFICATION (RAHUL SHARMA) */}
+          {/* TAB 2: QUICK EVALUATION LOGIN */}
           {tab === 'demo_verify' && (
-            <div className="space-y-5 animate-in fade-in">
-              <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900 to-slate-950 border border-indigo-500/25 space-y-3.5 text-left">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-black text-white">Rahul Sharma</span>
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-                        ✓ Verified Student
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300">
-                      National Institute of Engineering & Technology (VTU Affiliated)
-                    </p>
-                  </div>
-                  <div className="w-9 h-9 rounded-2xl bg-indigo-600/30 border border-indigo-500/30 flex items-center justify-center font-bold text-xs text-indigo-300">
-                    7th
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px] pt-1 border-t border-white/[0.06]">
-                  <div>
-                    <span className="text-slate-400">USN: </span>
-                    <span className="font-mono font-bold text-white">1NT20CS042</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Degree: </span>
-                    <span className="font-semibold text-slate-200">B.Tech CSE</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Active Arrears: </span>
-                    <span className="font-bold text-rose-400">3 Backlogs</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Initial ARS: </span>
-                    <span className="font-bold text-amber-400">42 / 100</span>
-                  </div>
-                </div>
-
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Pre-configured benchmark recovery cohort for instant evaluation and demonstration.
+            <div className="space-y-4 animate-in fade-in">
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900 to-slate-950 border border-indigo-500/25 space-y-2 text-left">
+                <span className="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  Instant Evaluator Access
+                </span>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Enter your details below to immediately access and evaluate the academic recovery platform.
                 </p>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Full Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={quickName}
+                  onChange={(e) => setQuickName(e.target.value)}
+                  placeholder="Enter your name"
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  value={quickEmail}
+                  onChange={(e) => setQuickEmail(e.target.value)}
+                  placeholder="Enter email"
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                />
               </div>
 
               <button
                 type="button"
-                onClick={handleQuickDemoVerify}
+                onClick={handleQuickVerify}
                 disabled={isVerifying}
                 className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold text-xs shadow-xl shadow-emerald-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
               >
                 {isVerifying ? (
                   <>
                     <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Signing in as Rahul Sharma...</span>
+                    <span>Verifying Access...</span>
                   </>
                 ) : (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-emerald-200" />
-                    <span>Verify & Enter as Rahul Sharma (1-Click Demo)</span>
+                    <span>Verify & Enter Platform</span>
                   </>
                 )}
               </button>
@@ -427,7 +447,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
           {tab === 'new_register' && (
             <form onSubmit={handleRegisterSubmit} className="space-y-4 animate-in fade-in">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Your Full Name</label>
+                <label className="text-xs font-semibold text-slate-300">Full Name</label>
                 <input
                   type="text"
                   required
@@ -445,7 +465,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                   required
                   value={newStudentCollege}
                   onChange={(e) => setNewStudentCollege(e.target.value)}
-                  placeholder="Enter college / university name"
+                  placeholder="Enter college name"
                   className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
@@ -458,7 +478,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                     required
                     value={newStudentDegree}
                     onChange={(e) => setNewStudentDegree(e.target.value)}
-                    placeholder="Enter engineering branch"
+                    placeholder="Enter branch"
                     className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                   />
                 </div>
@@ -490,7 +510,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4 text-cyan-300" />
-                    <span>Create Profile, Verify & Enter</span>
+                    <span>Register & Verify</span>
                   </>
                 )}
               </button>

@@ -19,7 +19,7 @@ export const StudyBuddy: React.FC<StudyBuddyProps> = () => {
   const [chatInput, setChatInput] = useState('');
   const [groupMessages, setGroupMessages] = useState<{ [key: string]: string[] }>({
     'group-1': [
-      'Rahul (Me): Hey everyone, who has solved the 2024 Fourier Question 3?',
+      'You: Hey everyone, who has solved the 2024 Fourier Question 3?',
       'Priya: Just posted the handwritten proof in Resources! Check Unit 1 folder.',
       'Aman: Joining the 8 PM sprint. Aiming for 2 hours today!',
     ],

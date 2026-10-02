@@ -400,6 +400,7 @@ export const BacklogManager: React.FC<BacklogManagerProps> = ({
                     max={6}
                     value={newCredits}
                     onChange={(e) => setNewCredits(Number(e.target.value))}
+                    placeholder="Enter credits"
                     className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
                   />
                 </div>
@@ -416,6 +417,7 @@ export const BacklogManager: React.FC<BacklogManagerProps> = ({
                     max={8}
                     value={newSemester}
                     onChange={(e) => setNewSemester(Number(e.target.value))}
+                    placeholder="Enter semester"
                     className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
                   />
                 </div>

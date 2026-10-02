@@ -10,8 +10,8 @@ import {
 import { calculateBacklogPriority } from '../services/priorityEngine';
 
 export const initialStudentProfile: StudentProfile = {
-  name: 'Rahul Sharma',
-  college: 'National Institute of Engineering & Technology',
+  name: 'Student',
+  college: 'Engineering Institution',
   degree: 'B.Tech in Computer Science & Engineering',
   semester: 7,
   dailyStudyHours: 4.0,
