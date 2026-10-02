@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Home,
   Settings,
+  LogOut,
 } from 'lucide-react';
 
 export type NavTab =
@@ -36,6 +37,7 @@ interface SidebarProps {
   onSelectTab: (tab: NavTab) => void;
   backlogCount: number;
   criticalCount: number;
+  onLogout?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -43,6 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectTab,
   backlogCount,
   criticalCount,
+  onLogout,
 }) => {
   const sections = [
     {
@@ -210,17 +213,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
         ))}
       </div>
 
-      {/* Modern Motivational Quote Footer */}
-      <div className="hidden lg:block mt-6 p-4 rounded-3xl bg-slate-900/40 border border-white/[0.06] text-left">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-300">
-            Turnaround Mode
-          </span>
+      {/* Modern Motivational Quote Footer & Logout */}
+      <div className="space-y-2 mt-6">
+        <div className="hidden lg:block p-4 rounded-3xl bg-slate-900/40 border border-white/[0.06] text-left">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-300">
+              Turnaround Mode
+            </span>
+          </div>
+          <p className="text-xs text-slate-300 mt-1 font-medium leading-relaxed">
+            Small daily focus sprints compound into degree completion.
+          </p>
         </div>
-        <p className="text-xs text-slate-300 mt-1 font-medium leading-relaxed">
-          Small daily focus sprints compound into degree completion.
-        </p>
+
+        {onLogout && (
+          <button
+            onClick={onLogout}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-2xl text-xs font-bold text-rose-300 hover:text-white bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition cursor-pointer"
+            title="Log out of student account"
+          >
+            <LogOut className="w-3.5 h-3.5 text-rose-400" />
+            <span>Log Out</span>
+          </button>
+        )}
       </div>
     </aside>
   );

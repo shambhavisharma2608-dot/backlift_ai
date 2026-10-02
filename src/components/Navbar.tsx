@@ -10,6 +10,8 @@ import {
   User,
   Home,
   LogIn,
+  LogOut,
+  ShieldCheck,
 } from 'lucide-react';
 import { StudentProfile, RecoveryFactorBreakdown } from '../types';
 import { NavTab } from './Sidebar';
@@ -26,6 +28,7 @@ interface NavbarProps {
   onResetData: () => void;
   onOpenOnboarding: () => void;
   onOpenAuthModal: () => void;
+  onLogout: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -39,6 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onResetData,
   onOpenOnboarding,
   onOpenAuthModal,
+  onLogout,
 }) => {
   const [showFactorMenu, setShowFactorMenu] = useState(false);
 
@@ -167,14 +171,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </button>
 
-          {/* Sign In / College SSO Modal Trigger */}
+          {/* Profile / Edit Button with Verified Badge */}
           <button
-            onClick={onOpenAuthModal}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 hover:text-white border border-white/[0.08] transition cursor-pointer"
-            title="Student Login / Sign Up"
+            onClick={() => onNavigateTab('settings')}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-white/[0.09] rounded-xl transition cursor-pointer"
+            title="Verified Student Profile & Settings"
           >
-            <LogIn className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Sign In</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" title="Verified Session" />
+            <User className="w-3.5 h-3.5 text-indigo-400" />
+            <span className="hidden md:inline">{student.name.split(' ')[0]}</span>
+            <span className="hidden lg:inline text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">Verified</span>
           </button>
 
           {/* Recovery Report Button */}
@@ -186,20 +192,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Report</span>
           </button>
 
-          {/* Profile / Edit Button */}
+          {/* Prominent Log Out Button */}
           <button
-            onClick={() => onNavigateTab('settings')}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 border border-white/[0.07] rounded-xl transition cursor-pointer"
-            title="Profile & Settings"
+            onClick={onLogout}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 hover:text-rose-200 border border-rose-500/30 transition-all cursor-pointer hover:scale-102"
+            title="Log Out & Lock Academic Recovery Portal"
           >
-            <User className="w-3.5 h-3.5 text-slate-400" />
-            <span className="hidden md:inline">{student.name.split(' ')[0]}</span>
+            <LogOut className="w-3.5 h-3.5 text-rose-400" />
+            <span>Log Out</span>
           </button>
 
           {/* Reset Demo Data Button */}
           <button
             onClick={onResetData}
-            className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 rounded-xl transition cursor-pointer"
             title="Reset Sample Demo Data"
           >
             <RotateCcw className="w-4 h-4" />

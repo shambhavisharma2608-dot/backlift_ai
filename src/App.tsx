@@ -17,6 +17,7 @@ import { RecoveryReportModal } from './components/Modals/RecoveryReportModal';
 import { LandingPage } from './components/Landing/LandingPage';
 import { AuthModal } from './components/Auth/AuthModal';
 import { ProfileSettings } from './components/Settings/ProfileSettings';
+import { VerificationGate } from './components/Auth/VerificationGate';
 
 import { StudentProfile, Backlog, StudyPlanItem, QuizAttempt } from './types';
 import { storageService } from './services/storageService';
@@ -24,6 +25,11 @@ import { calculateAcademicRecoveryScore, rebalanceMissedDayPlan } from './servic
 import { initialStudentProfile, initialBacklogs } from './data/mockData';
 
 export function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    const session = storageService.getAuthSession();
+    return session ? session.isAuthenticated : false;
+  });
+
   const [student, setStudent] = useState<StudentProfile>(() => storageService.getProfile());
   const [backlogs, setBacklogs] = useState<Backlog[]>(() => storageService.getBacklogs());
   const [plan, setPlan] = useState<StudyPlanItem[]>(() =>
@@ -129,6 +135,46 @@ export function App() {
     setPlan(refreshedPlan);
   };
 
+  const handleVerificationSuccess = (
+    profile: Partial<StudentProfile>,
+    sessionInfo: {
+      studentName: string;
+      studentEmail?: string;
+      usn?: string;
+      method: 'roll_otp' | 'demo_rahul' | 'custom_signup';
+    }
+  ) => {
+    storageService.saveAuthSession({
+      isAuthenticated: true,
+      studentName: sessionInfo.studentName,
+      studentEmail: sessionInfo.studentEmail,
+      usn: sessionInfo.usn,
+      verifiedAt: new Date().toISOString(),
+      method: sessionInfo.method,
+    });
+    setStudent((prev) => ({
+      ...prev,
+      ...profile,
+    }));
+    setIsAuthenticated(true);
+    setActiveTab('landing');
+  };
+
+  const handleLogout = () => {
+    storageService.clearAuthSession();
+    setIsAuthenticated(false);
+    setActiveTab('landing');
+  };
+
+  // If unauthenticated, gate all tools behind the Student Verification Gate
+  if (!isAuthenticated) {
+    return (
+      <VerificationGate
+        onVerificationSuccess={handleVerificationSuccess}
+      />
+    );
+  }
+
   // Critical backlog count
   const criticalCount = backlogs.filter((b) => b.status === 'critical').length;
 
@@ -152,6 +198,7 @@ export function App() {
         onResetData={handleResetData}
         onOpenOnboarding={() => setShowOnboarding(true)}
         onOpenAuthModal={() => setShowAuthModal(true)}
+        onLogout={handleLogout}
       />
 
       {/* Main Layout Area */}
@@ -162,6 +209,7 @@ export function App() {
           onSelectTab={setActiveTab}
           backlogCount={backlogs.length}
           criticalCount={criticalCount}
+          onLogout={handleLogout}
         />
 
         {/* Dynamic Main Workspace Container */}
@@ -270,6 +318,7 @@ export function App() {
               onUpdateProfile={(updated) => setStudent(updated)}
               onOpenReportModal={() => setShowReportModal(true)}
               onResetData={handleResetData}
+              onLogout={handleLogout}
             />
           )}
         </main>
@@ -282,7 +331,15 @@ export function App() {
         onLoginSuccess={(newProfile) => {
           if (newProfile) {
             setStudent((prev) => ({ ...prev, ...newProfile }));
+            storageService.saveAuthSession({
+              isAuthenticated: true,
+              studentName: newProfile.name || student.name,
+              studentEmail: `${(newProfile.name || student.name).toLowerCase().replace(/\s+/g, '.')}@college.edu`,
+              verifiedAt: new Date().toISOString(),
+              method: 'demo_rahul',
+            });
           }
+          setIsAuthenticated(true);
           setActiveTab('dashboard');
         }}
       />

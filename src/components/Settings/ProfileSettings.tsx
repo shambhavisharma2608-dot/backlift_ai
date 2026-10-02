@@ -10,6 +10,7 @@ import {
   Sparkles,
   Save,
   CheckCircle2,
+  LogOut,
 } from 'lucide-react';
 import { StudentProfile, Backlog } from '../../types';
 
@@ -19,6 +20,7 @@ interface ProfileSettingsProps {
   onUpdateProfile: (updated: StudentProfile) => void;
   onOpenReportModal: () => void;
   onResetData: () => void;
+  onLogout?: () => void;
 }
 
 export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
@@ -27,6 +29,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
   onUpdateProfile,
   onOpenReportModal,
   onResetData,
+  onLogout,
 }) => {
   const [formData, setFormData] = useState<StudentProfile>(student);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -257,14 +260,24 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
         <p className="text-xs text-slate-400">
           Reset all stored localStorage backlogs, study schedules, and timer history to the default 7th-semester student scenario (Rahul Sharma).
         </p>
-        <div>
+        <div className="flex flex-wrap gap-3">
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-md shadow-rose-600/30 transition cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Log Out of Student Account</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={onResetData}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold transition cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-white/[0.08] text-xs font-semibold transition cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset to Default Scenario</span>
+            <span>Reset Demo Backlog Data</span>
           </button>
         </div>
       </div>

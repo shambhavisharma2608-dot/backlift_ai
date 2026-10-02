@@ -11,6 +11,7 @@ import {
 import { generateAdaptiveStudyPlan } from './priorityEngine';
 
 const STORAGE_KEYS = {
+  AUTH: 'backlift_auth_session',
   PROFILE: 'backlift_student_profile',
   BACKLOGS: 'backlift_student_backlogs',
   STUDY_PLAN: 'backlift_study_plan',
@@ -19,7 +20,32 @@ const STORAGE_KEYS = {
   TIMER_LOGS: 'backlift_timer_logs',
 };
 
+export interface AuthSession {
+  isAuthenticated: boolean;
+  studentName: string;
+  studentEmail?: string;
+  usn?: string;
+  verifiedAt: string;
+  method: 'roll_otp' | 'demo_rahul' | 'custom_signup';
+}
+
 export const storageService = {
+  getAuthSession(): AuthSession | null {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.AUTH);
+      return data ? JSON.parse(data) : null;
+    } catch {
+      return null;
+    }
+  },
+
+  saveAuthSession(session: AuthSession): void {
+    localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(session));
+  },
+
+  clearAuthSession(): void {
+    localStorage.removeItem(STORAGE_KEYS.AUTH);
+  },
   getProfile(): StudentProfile {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.PROFILE);
