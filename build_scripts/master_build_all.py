@@ -140,7 +140,7 @@ Every single component in this submission folder directly connects to the sequen
 1. **Direct In-Browser Live Testing (Zero Installation Needed):**
    - Click the live deployment link: **[https://shambhavisharma2608-dot.github.io/backlift_ai/](https://shambhavisharma2608-dot.github.io/backlift_ai/)**
    - The application opens on the **Home / Landing Page** with the interactive **Backlog Priority Calculator**.
-   - Click **"Launch Dashboard"** or **"Sign In with College SSO"** (1-click Rahul Sharma demo login) to enter the student workspace.
+   - Click **"Launch Dashboard"** or complete student verification (USN & OTP, Quick Evaluator Login, or New Student Registration) to enter the student workspace.
    - Navigate to **"AI Coach (LiftBot)"** and click the **Q1 to Q5 chips** to test the 5 assignment evaluation queries directly!
 
 2. **Source Code & Git History Review:**
