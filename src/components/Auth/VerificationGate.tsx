@@ -32,8 +32,8 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
 
   // USN / OTP State
   const [university, setUniversity] = useState('VTU (Visvesvaraya Technological University)');
-  const [usn, setUsn] = useState('1NT20CS042');
-  const [email, setEmail] = useState('rahul.sharma@vtu.ac.in');
+  const [usn, setUsn] = useState('');
+  const [email, setEmail] = useState('');
   const [generatedCode, setGeneratedCode] = useState<string | null>(null);
   const [enteredCode, setEnteredCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
@@ -43,7 +43,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
   // New Student State
   const [newStudentName, setNewStudentName] = useState('');
   const [newStudentCollege, setNewStudentCollege] = useState('');
-  const [newStudentDegree, setNewStudentDegree] = useState('B.Tech in Computer Science & Engineering');
+  const [newStudentDegree, setNewStudentDegree] = useState('');
   const [newStudentSem, setNewStudentSem] = useState(7);
 
   // Handle Generate OTP
@@ -260,7 +260,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                         type="text"
                         value={usn}
                         onChange={(e) => setUsn(e.target.value)}
-                        placeholder="e.g. 1NT20CS042"
+                        placeholder="Enter University Seat No / USN"
                         className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-mono uppercase"
                       />
                     </div>
@@ -274,7 +274,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="e.g. rahul.sharma@vtu.ac.in"
+                        placeholder="Enter college email"
                         className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                       />
                     </div>
@@ -433,7 +433,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                   required
                   value={newStudentName}
                   onChange={(e) => setNewStudentName(e.target.value)}
-                  placeholder="e.g. Shambhavi Sharma"
+                  placeholder="Enter your name"
                   className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
@@ -445,7 +445,7 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                   required
                   value={newStudentCollege}
                   onChange={(e) => setNewStudentCollege(e.target.value)}
-                  placeholder="e.g. Bangalore Institute of Technology"
+                  placeholder="Enter college / university name"
                   className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
@@ -455,8 +455,10 @@ export const VerificationGate: React.FC<VerificationGateProps> = ({
                   <label className="text-xs font-semibold text-slate-300">Engineering Branch</label>
                   <input
                     type="text"
+                    required
                     value={newStudentDegree}
                     onChange={(e) => setNewStudentDegree(e.target.value)}
+                    placeholder="Enter engineering branch"
                     className="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                   />
                 </div>

@@ -371,7 +371,7 @@ export const BacklogManager: React.FC<BacklogManagerProps> = ({
                   required
                   value={newSubject}
                   onChange={(e) => setNewSubject(e.target.value)}
-                  placeholder="e.g. Signals and Systems"
+                  placeholder="Enter subject name"
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
                 />
               </div>
@@ -386,7 +386,7 @@ export const BacklogManager: React.FC<BacklogManagerProps> = ({
                     required
                     value={newCode}
                     onChange={(e) => setNewCode(e.target.value)}
-                    placeholder="EC303"
+                    placeholder="Enter subject code"
                     className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
                   />
                 </div>

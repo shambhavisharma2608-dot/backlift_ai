@@ -27,7 +27,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [college, setCollege] = useState('NIET (National Institute of Engg & Tech)');
+  const [college, setCollege] = useState('');
 
   if (!isOpen) return null;
 
@@ -110,7 +110,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           className="w-full py-2.5 px-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 transition"
         >
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-          <span>Quick Demo Login (Rahul Sharma • 7th Sem)</span>
+          <span>Quick Demo Login (Sample Benchmark Student)</span>
         </button>
 
         {/* Social SSO Buttons */}
@@ -133,7 +133,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         <div className="flex items-center gap-3 text-slate-500 text-xs">
           <div className="flex-1 h-px bg-white/[0.06]" />
-          <span>or continue with email</span>
+          <span>or continue with credentials</span>
           <div className="flex-1 h-px bg-white/[0.06]" />
         </div>
 
@@ -147,7 +147,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -163,7 +163,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder="student@university.edu.in"
+                placeholder="Enter university email or USN"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -178,7 +178,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <input
                 type="password"
                 required
-                placeholder="••••••••"
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -193,7 +193,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <School className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                 <input
                   type="text"
-                  placeholder="e.g. National Institute of Engineering"
+                  placeholder="Enter college / university name"
                   value={college}
                   onChange={(e) => setCollege(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"

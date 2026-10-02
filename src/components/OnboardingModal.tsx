@@ -149,7 +149,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="Enter your name"
                 />
               </div>
 
@@ -162,7 +162,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   value={college}
                   onChange={(e) => setCollege(e.target.value)}
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                  placeholder="e.g. NIET College"
+                  placeholder="Enter college / university name"
                 />
               </div>
 
@@ -175,7 +175,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   value={degree}
                   onChange={(e) => setDegree(e.target.value)}
                   className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                  placeholder="e.g. B.Tech Computer Science"
+                  placeholder="Enter degree program"
                 />
               </div>
 
@@ -248,14 +248,14 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     value={backlogCode}
                     onChange={(e) => setBacklogCode(e.target.value)}
                     className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none"
-                    placeholder="MATH201"
+                    placeholder="Enter subject code"
                   />
                   <input
                     type="number"
                     value={backlogCredits}
                     onChange={(e) => setBacklogCredits(Number(e.target.value))}
                     className="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none"
-                    placeholder="Credits (4)"
+                    placeholder="Enter credits (1-6)"
                     min={1}
                     max={6}
                   />

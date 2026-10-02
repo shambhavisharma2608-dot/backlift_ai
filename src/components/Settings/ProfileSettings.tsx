@@ -92,6 +92,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Enter your name"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -102,6 +103,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 type="text"
                 value={formData.college}
                 onChange={(e) => setFormData({ ...formData, college: e.target.value })}
+                placeholder="Enter college / university name"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -112,6 +114,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 type="text"
                 value={formData.degree}
                 onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
+                placeholder="Enter program / degree"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500"
               />
             </div>

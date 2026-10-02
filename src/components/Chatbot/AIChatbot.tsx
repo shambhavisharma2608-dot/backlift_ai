@@ -179,7 +179,7 @@ Click any official assignment evaluation question below or ask me anything about
           <textarea
             value={notesText}
             onChange={(e) => setNotesText(e.target.value)}
-            placeholder="Paste raw notes or textbook paragraphs here (e.g. 'Fourier series Dirichlet conditions state that...'). LiftBot will answer questions specifically grounded in these notes."
+            placeholder="Paste raw notes or textbook paragraphs here. LiftBot will answer questions specifically grounded in these notes."
             rows={3}
             className="w-full bg-slate-900/80 border border-purple-500/20 rounded-2xl p-4 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-400"
           />
@@ -269,7 +269,7 @@ Click any official assignment evaluation question below or ask me anything about
             placeholder={
               activeMode === 'notes'
                 ? "Ask a question from your pasted notes above..."
-                : "Ask LiftBot: 'Explain this topic simply', 'What should I study first?'..."
+                : "Ask LiftBot your concept or revision question..."
             }
             className="flex-1 bg-transparent px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none placeholder-slate-500"
           />
