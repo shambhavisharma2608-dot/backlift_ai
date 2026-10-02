@@ -1,6 +1,10 @@
 # 🎓 BackLift AI — Academic Recovery & Study Management Platform
 
 > **Working Prototype for Internship Project Submission**
+> 
+> 🌐 **Live Prototype Demonstration**: [https://shambhavisharma2608-dot.github.io/backlift_ai/](https://shambhavisharma2608-dot.github.io/backlift_ai/)
+> 
+> 📂 **GitHub Repository**: [https://github.com/shambhavisharma2608-dot/backlift_ai](https://github.com/shambhavisharma2608-dot/backlift_ai)
 
 ---
 
